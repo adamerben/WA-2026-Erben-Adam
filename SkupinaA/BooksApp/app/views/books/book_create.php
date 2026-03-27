@@ -15,7 +15,7 @@
         </div>
         
         <div>
-                <form action="/WA-2026-Erben-Adam/SkupinaA/BooksApp/public/index.php?url=book/store" method="post" enctype="multipart/form-data">                <div>
+            <form action="<?= BASE_URL ?>/index.php?url=book/store" method="post" enctype="multipart/form-data">
                     <div>
                         <label for="title">Název knihy <span>*</span></label>
                         <input type="text" id="title" name="title" required>
