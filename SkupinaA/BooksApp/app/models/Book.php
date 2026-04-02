@@ -22,7 +22,7 @@ class Book {
     // Metoda pro uložení knihy do DB
     public function create($data) {
         // Připravený SQL dotaz
-        $sql = "INSERT INTO books (title, author, isbn, category, subcategory, release_year, price, link, description) 
+        $sql = "INSERT INTO books (title, author, isbn, category, subcategory, year, price, link, description) 
                 VALUES (:title, :author, :isbn, :category, :subcategory, :year, :price, :link, :description)";
         
         $stmt = $this->db->prepare($sql);
@@ -62,7 +62,7 @@ class Book {
                     author = :author, 
                     category = :category, 
                     subcategory = :subcategory, 
-                    year = :year, 
+                    release_year = :year, 
                     price = :price, 
                     isbn = :isbn, 
                     description = :description, 
@@ -79,7 +79,7 @@ class Book {
             ':author' => $author,
             ':category' => $category,
             ':subcategory' => $subcategory ?: null,
-            ':year' => $year,
+            ':release_year' => $year,
             ':price' => $price,
             ':isbn' => $isbn,
             ':description' => $description,
@@ -95,6 +95,15 @@ class Book {
         
         // Vrací true při úspěchu, false při chybě
         return $stmt->execute([':id' => $id]);
+    }
+
+    // Získání všech knih z databáze
+    public function getAll() {
+        $sql = "SELECT * FROM books";
+        $stmt = $this->db->query($sql);
+        
+        // Vrátí pole všech knih jako asociativní pole
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

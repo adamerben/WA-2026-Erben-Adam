@@ -47,7 +47,7 @@
                     </div>
                     <div>
                         <label for="year">Rok vydání  <span>*</span></label>
-                        <input type="number" id="year" name="year" value="<?= htmlspecialchars($book['year']) ?>" required>
+                        <input type="number" id="year" name="year" value="<?= htmlspecialchars($book['release_year']) ?>" required>
                     </div>
                     <div>
                         <label for="price">Cena knihy</label>
