@@ -60,6 +60,28 @@ class BookController
         }
     }
 
+    // Zobrazení detailu jedné konkrétní knihy
+    public function show($id = null) {
+        // Kontrola, zda bylo předáno ID
+        if (!$id) {
+            header('Location: ' . BASE_URL . '/index.php');
+            exit;
+        }
+
+        // Získání dat o knize z databáze
+        $bookModel = new Book();
+        $book = $bookModel->getById($id);
+
+        // Pokud kniha v databázi neexistuje, vrátíme se na seznam
+        if (!$book) {
+            header('Location: ' . BASE_URL . '/index.php');
+            exit;
+        }
+
+        // Načtení šablony pro zobrazení detailu
+        require_once '../app/views/books/book_show.php';
+    }
+
     // 3. Smazání existující knihy
     public function delete($id = null)
     {

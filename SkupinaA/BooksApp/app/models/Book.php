@@ -22,7 +22,7 @@ class Book {
     // Metoda pro uložení knihy do DB
     public function create($data) {
         // Připravený SQL dotaz
-        $sql = "INSERT INTO books (title, author, isbn, category, subcategory, year, price, link, description) 
+        $sql = "INSERT INTO books (title, author, isbn, category, subcategory, release_year, price, link, description) 
                 VALUES (:title, :author, :isbn, :category, :subcategory, :year, :price, :link, :description)";
         
         $stmt = $this->db->prepare($sql);
@@ -66,8 +66,7 @@ class Book {
                     price = :price, 
                     isbn = :isbn, 
                     description = :description, 
-                    link = :link, 
-                    images = :images
+                    link = :link
                 WHERE id = :id";
                 
         $stmt = $this->db->prepare($sql);
@@ -79,12 +78,11 @@ class Book {
             ':author' => $author,
             ':category' => $category,
             ':subcategory' => $subcategory ?: null,
-            ':release_year' => $year,
+            ':year' => $year,
             ':price' => $price,
             ':isbn' => $isbn,
             ':description' => $description,
-            ':link' => $link,
-            ':images' => json_encode($images)
+            ':link' => $link
         ]);
     }
 
