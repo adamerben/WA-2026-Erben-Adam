@@ -1,25 +1,7 @@
-<!DOCTYPE html>
-<html lang="cs">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <title>Knihovna - Seznam knih</title>
-</head>
-
-<body class="bg-gray-100 text-gray-800 font-sans p-6">
-    <header class="bg-blue-600 text-white p-6 rounded-lg shadow-md mb-6">
-        <h1 class="text-3xl font-bold mb-4">Aplikace Knihovna</h1>
-
-        <nav>
-            <ul class="flex space-x-4">
-                <li><a href="<?= BASE_URL ?>/index.php" class="bg-blue-800 hover:bg-blue-700 px-4 py-2 rounded transition">Seznam knih (Domů)</a></li>
-                <li><a href="<?= BASE_URL ?>/index.php?url=book/create" class="bg-green-600 hover:bg-green-500 px-4 py-2 rounded transition">Přidat novou knihu</a></li>
-            </ul>
-        </nav>
-    </header>
-
+<?php 
+$pageTitle = "Seznam knih";
+require_once '../app/views/layout/header.php'; 
+?>
     <main class="bg-white p-6 rounded-lg shadow-md">
         <h2 class="text-2xl font-semibold border-b pb-2 mb-4">Dostupné knihy</h2>
 
