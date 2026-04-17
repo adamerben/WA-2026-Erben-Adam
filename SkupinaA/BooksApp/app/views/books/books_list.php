@@ -26,7 +26,7 @@ require_once '../app/views/layout/header.php';
                                 <td class="py-2 px-4 border-b"><?= htmlspecialchars($book['id']) ?></td>
                                 <td class="py-2 px-4 border-b font-medium"><?= htmlspecialchars($book['title'] ?? '') ?></td>
                                 <td class="py-2 px-4 border-b"><?= htmlspecialchars($book['author'] ?? '') ?></td>
-                                <td class="py-2 px-4 border-b"><?= htmlspecialchars($book['release_year'] ?? '') ?></td>
+                                <td class="py-2 px-4 border-b"><?= htmlspecialchars($book['year'] ?? '') ?></td>
                                 <td class="py-2 px-4 border-b"><?= htmlspecialchars($book['price'] ?? '') ?> Kč</td>
                                 <td class="py-2 px-4 border-b space-x-2">
                                     <a href="<?= BASE_URL ?>/index.php?url=book/show/<?= $book['id'] ?>" class="text-blue-500 hover:underline">Detail</a>

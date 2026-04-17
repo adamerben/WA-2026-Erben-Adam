@@ -24,7 +24,7 @@ require_once '../app/views/layout/header.php';
             <div class="bg-gray-50 p-4 rounded-lg border border-gray-100">
                 <p class="text-sm text-gray-500 uppercase tracking-wide">Základní informace</p>
                 <ul class="mt-2 space-y-2">
-                    <li><span class="font-semibold text-gray-700 w-32 inline-block">Rok vydání:</span> <?= htmlspecialchars($book['release_year'] ?? 'Neuveden') ?></li>
+                    <li><span class="font-semibold text-gray-700 w-32 inline-block">Rok vydání:</span> <?= htmlspecialchars($book['year'] ?? 'Neuveden') ?></li>
                     <li><span class="font-semibold text-gray-700 w-32 inline-block">ISBN:</span> <?= htmlspecialchars($book['isbn'] ?? 'Neuvedeno') ?></li>
                     <li><span class="font-semibold text-gray-700 w-32 inline-block">Cena:</span> <span class="text-green-600 font-bold"><?= htmlspecialchars($book['price'] ?? 'Neuvedena') ?> Kč</span></li>
                 </ul>

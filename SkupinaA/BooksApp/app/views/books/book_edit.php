@@ -44,7 +44,7 @@ require_once '../app/views/layout/header.php';
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 <div>
                     <label for="year" class="block text-sm font-medium text-gray-700 mb-1">Rok vydání <span class="text-red-500">*</span></label>
-                    <input type="number" id="year" name="year" value="<?= htmlspecialchars($book['release_year'] ?? '') ?>" required class="w-full border border-gray-300 rounded-md p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition">
+                    <input type="number" id="year" name="year" value="<?= htmlspecialchars($book['year'] ?? '') ?>" required class="w-full border border-gray-300 rounded-md p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition">
                 </div>
                 <div>
                     <label for="price" class="block text-sm font-medium text-gray-700 mb-1">Cena knihy (Kč)</label>

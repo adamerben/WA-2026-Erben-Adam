@@ -36,10 +36,18 @@ class AuthController {
             }
 
             // Napojení na DB a Model
-            require_once '../app/models/Database.php';
+            require_once '../app/models/Book.php';
             require_once '../app/models/User.php';
             
-            $db = (new Database())->getConnection();
+            // Uvnitř metody storeUser() (místo new Database)
+    
+            // 1. Vytvoříme instanci modelu Book (který se sám připojí k DB)
+            $bookModel = new Book();
+            
+            // 2. Vytáhneme z něj hotové připojení a uložíme ho do $db
+            $db = $bookModel->getConnection();
+            
+            // 3. Předáme $db do modelu User přesně tak, jak to tvůj kód očekává
             $userModel = new User($db);
 
             // Pokus o uložení do databáze
@@ -66,10 +74,16 @@ class AuthController {
             $email = htmlspecialchars($_POST['email'] ?? '');
             $password = $_POST['password'] ?? '';
 
-            require_once '../app/models/Database.php';
+            require_once '../app/models/Book.php';
             require_once '../app/models/User.php';
             
-            $db = (new Database())->getConnection();
+            // 1. Vytvoříme instanci modelu Book
+            $bookModel = new Book();
+
+            // 2. Vytáhneme z něj hotové připojení a uložíme ho do $db
+            $db = $bookModel->getConnection();
+
+            // 3. Předáme $db do modelu User
             $userModel = new User($db);
 
             // Najdeme uživatele podle emailu

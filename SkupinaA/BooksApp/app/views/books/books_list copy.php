@@ -44,7 +44,7 @@
                             <td><?= htmlspecialchars($book['id']) ?></td>
                             <td><?= htmlspecialchars($book['title'] ?? '') ?></td>
                             <td><?= htmlspecialchars($book['author'] ?? '') ?></td>
-                            <td><?= htmlspecialchars($book['release_year'] ?? '') ?></td>
+                            <td><?= htmlspecialchars($book['year'] ?? '') ?></td>
                             <td><?= htmlspecialchars($book['price'] ?? '') ?> Kč</td>
                             <td>
                                 <a href="<?= BASE_URL ?>/index.php?url=book/show/<?= $book['id'] ?>">Detail</a> |

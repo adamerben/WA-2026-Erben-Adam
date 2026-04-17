@@ -20,7 +20,7 @@
         
         <div>
             <p><strong>Autor:</strong> <?= htmlspecialchars($book['author']) ?></p>
-            <p><strong>Rok vydání:</strong> <?= htmlspecialchars($book['release_year']) ?></p>
+            <p><strong>Rok vydání:</strong> <?= htmlspecialchars($book['year']) ?></p>
             <p><strong>Cena:</strong> <?= htmlspecialchars($book['price'] ?? 'Neuvedena') ?> Kč</p>
             <p><strong>Kategorie:</strong> <?= htmlspecialchars($book['category'] ?? '') ?></p>
             <p><strong>Podkategorie:</strong> <?= htmlspecialchars($book['subcategory'] ?? '') ?></p>

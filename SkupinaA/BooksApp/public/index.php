@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 // Pro účely výuky a ladění na lokalním serveru (např. XAMPP)
 // je vhodné zapnout kompletní zobrazovaní chyb.
 ini_set('display_errors', 1);

@@ -19,10 +19,15 @@ class Book {
         }
     }
 
+    // Metoda pro získání existujícího připojení k DB
+    public function getConnection() {
+        return $this->db;
+    }
+
     // Metoda pro uložení knihy do DB
     public function create($data) {
         // Připravený SQL dotaz
-        $sql = "INSERT INTO books (title, author, isbn, category, subcategory, release_year, price, link, description) 
+        $sql = "INSERT INTO books (title, author, isbn, category, subcategory, year, price, link, description) 
                 VALUES (:title, :author, :isbn, :category, :subcategory, :year, :price, :link, :description)";
         
         $stmt = $this->db->prepare($sql);
@@ -62,7 +67,7 @@ class Book {
                     author = :author, 
                     category = :category, 
                     subcategory = :subcategory, 
-                    release_year = :year, 
+                    year = :year, 
                     price = :price, 
                     isbn = :isbn, 
                     description = :description, 
