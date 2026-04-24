@@ -25,24 +25,37 @@ class Book {
     }
 
     // Metoda pro uložení knihy do DB
-    public function create($data) {
-        // Připravený SQL dotaz
-        $sql = "INSERT INTO books (title, author, isbn, category, subcategory, year, price, link, description) 
-                VALUES (:title, :author, :isbn, :category, :subcategory, :year, :price, :link, :description)";
+        public function create(
+        string $title,
+        string $author,
+        string $category,
+        string $subcategory,
+        int $year,
+        float $price,
+        string $isbn,
+        string $description,
+        string $link,
+        array $images,
+        int $userId // !!! ZMĚNA: NOVÝ PARAMETR PRO ID UŽIVATELE
+    ): bool {
+        // !!! ZMĚNA: Přidali jsme created_by do INSERT i VALUES
+        $sql = "INSERT INTO books (title, author, category, subcategory, year, price, isbn, description, link, images, created_by)
+                VALUES (:title, :author, :category, :subcategory, :year, :price, :isbn, :description, :link, :images, :created_by)";
         
         $stmt = $this->db->prepare($sql);
-        
-        // Provedení dotazu s vloženými daty
+
         return $stmt->execute([
-            ':title'       => $data['title'],
-            ':author'      => $data['author'],
-            ':isbn'        => $data['isbn'],
-            ':category'    => $data['category'],
-            ':subcategory' => $data['subcategory'],
-            ':year'        => $data['year'],
-            ':price'       => $data['price'] !== '' ? $data['price'] : null,
-            ':link'        => $data['link'],
-            ':description' => $data['description']
+            ':title' => $title,
+            ':author' => $author,
+            ':category' => $category,
+            ':subcategory' => $subcategory ?: null,
+            ':year' => $year,
+            ':price' => $price,
+            ':isbn' => $isbn,
+            ':description' => $description,
+            ':link' => $link,
+            ':images' => json_encode($images),
+            ':created_by' => $userId // !!! ZMĚNA: Předání ID do databáze
         ]);
     }
 

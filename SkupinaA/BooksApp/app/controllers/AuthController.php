@@ -37,22 +37,22 @@ class AuthController {
 
             $password = $_POST['password'];
 
-        // --- VALIDACE SÍLY HESLA ---
-        
-        // Pravidlo 1: Minimální délka 8 znaků
-        if (strlen($password) < 8) {
-            $_SESSION['error_message'] = "Heslo musí mít alespoň 8 znaků.";
-            header('Location: ' . BASE_URL . '/index.php?url=auth/register');
-            exit;
-        }
+            // --- VALIDACE SÍLY HESLA ---
+            
+            // Pravidlo 1: Minimální délka 8 znaků
+            if (strlen($password) < 8) {
+                $_SESSION['error_message'] = "Heslo musí mít alespoň 8 znaků.";
+                header('Location: ' . BASE_URL . '/index.php?url=auth/register');
+                exit;
+            }
 
-        // Pravidlo 2: Musí obsahovat alespoň jedno číslo
-        // preg_match vrací 1, pokud najde shodu, jinak 0
-        if (!preg_match('/\d/', $password)) {
-            $_SESSION['error_message'] = "Heslo musí obsahovat alespoň jedno číslo.";
-            header('Location: ' . BASE_URL . '/index.php?url=auth/register');
-            exit;
-        }
+            // Pravidlo 2: Musí obsahovat alespoň jedno číslo
+            // preg_match vrací 1, pokud najde shodu, jinak 0
+            if (!preg_match('/\d/', $password)) {
+                $_SESSION['error_message'] = "Heslo musí obsahovat alespoň jedno číslo.";
+                header('Location: ' . BASE_URL . '/index.php?url=auth/register');
+                exit;
+            }
 
             // Napojení na DB a Model
             require_once '../app/models/Book.php';
@@ -76,6 +76,29 @@ class AuthController {
                 exit;
             } else {
                 $this->addErrorMessage('Uživatel s tímto e-mailem již existuje.');
+                header('Location: ' . BASE_URL . '/index.php?url=auth/register');
+                exit;
+            }
+
+                    // ... předchozí validace ...
+
+            // Vytvoření modelu (používáme náš osvědčený trik z dřívějška)
+            $bookModel = new Book();
+            $db = $bookModel->getConnection();
+            $userModel = new User($db);
+
+            // Pokus o uložení do databáze
+            $isRegistered = $userModel->register($username, $password); // Doplň své proměnné
+
+            if ($isRegistered) {
+                // ÚSPĚCH! 
+                $_SESSION['success_message'] = "Registrace byla úspěšná! Nyní se můžete přihlásit.";
+                // Přesměrujeme na PŘIHLAŠOVÁNÍ
+                header('Location: ' . BASE_URL . '/index.php?url=auth/login');
+                exit;
+            } else {
+                // SELHÁNÍ (např. zadané uživatelské jméno už existuje)
+                $_SESSION['error_message'] = "Něco se pokazilo. Zadané jméno možná už existuje.";
                 header('Location: ' . BASE_URL . '/index.php?url=auth/register');
                 exit;
             }
@@ -125,6 +148,28 @@ class AuthController {
             } else {
                 // CHYBA: Záměrně neříkáme, zda byl špatný email, nebo heslo (bezpečnost!)
                 $this->addErrorMessage('Nesprávný e-mail nebo heslo.');
+                header('Location: ' . BASE_URL . '/index.php?url=auth/login');
+                exit;
+            }
+
+                    // ... (předchozí kód pro vytvoření $userModel)
+        
+            // Pokus o přihlášení
+            $loggedInUser = $userModel->login($username, $password);
+
+            if ($loggedInUser) {
+                // Úspěšné přihlášení
+                $_SESSION['user_id'] = $loggedInUser['id'];
+                $_SESSION['username'] = $loggedInUser['username'];
+                
+                // Volitelně můžeme přidat úspěšnou hlášku i sem, i když po přesměrování zmizí hlavní formulář
+                $_SESSION['success_message'] = "Byli jste úspěšně přihlášeni.";
+                
+                header('Location: ' . BASE_URL . '/index.php');
+                exit;
+            } else {
+                // ZDE JE ZMĚNA: Přidání chybové hlášky při špatném heslu/jménu
+                $_SESSION['error_message'] = "Nesprávné uživatelské jméno nebo heslo.";
                 header('Location: ' . BASE_URL . '/index.php?url=auth/login');
                 exit;
             }

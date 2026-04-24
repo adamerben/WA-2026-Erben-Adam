@@ -7,6 +7,20 @@
             <p class="text-slate-500 italic mt-2 text-sm">Vytvořte si účet pro správu vašeho knižního katalogu.</p>
         </div>
         
+        <?php if (isset($_SESSION['error_message'])): ?>
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                <?= htmlspecialchars($_SESSION['error_message']) ?>
+                <?php unset($_SESSION['error_message']); ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['success_message'])): ?>
+            <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
+                <?= htmlspecialchars($_SESSION['success_message']) ?>
+                <?php unset($_SESSION['success_message']); ?>
+            </div>
+        <?php endif; ?>
+
         <div class="bg-slate-800/50 border border-slate-700 rounded-xl shadow-2xl backdrop-blur-sm p-6 md:p-8">
             <form action="<?= BASE_URL ?>/index.php?url=auth/storeUser" method="post">
                 
