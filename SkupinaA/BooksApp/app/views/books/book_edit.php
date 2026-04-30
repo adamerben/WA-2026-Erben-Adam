@@ -31,10 +31,24 @@ require_once '../app/views/layout/header.php';
                     <label for="isbn" class="block text-sm font-medium text-gray-700 mb-1">ISBN</label>
                     <input type="text" id="isbn" name="isbn" value="<?= htmlspecialchars($book['isbn'] ?? '') ?>" class="w-full border border-gray-300 rounded-md p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition">
                 </div>
-                <div>
-                    <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Kategorie </label>
-                    <input type="text" id="category" name="category" value="<?= htmlspecialchars($book['category'] ?? '') ?>" class="w-full border border-gray-300 rounded-md p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition">
-                </div>
+            <div>
+                <label for="category">Kategorie *</label>
+                <select id="category" name="category" required>
+                    <option value="">-- Vyberte kategorii --</option>
+                    
+                    <?php foreach ($categories as $cat): ?>
+                        <?php 
+                        // Zkontrolujeme, zda ID aktuálně vykreslované kategorie odpovídá ID kategorie, kterou má kniha uloženou
+                        $isSelected = ($book['category'] == $cat['id']) ? 'selected' : ''; 
+                        ?>
+                        
+                        <option value="<?= htmlspecialchars($cat['id']) ?>" <?= $isSelected ?>>
+                            <?= htmlspecialchars($cat['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                    
+                </select>
+            </div>
                 <div>
                     <label for="subcategory" class="block text-sm font-medium text-gray-700 mb-1">Podkategorie </label>
                     <input type="text" id="subcategory" name="subcategory" value="<?= htmlspecialchars($book['subcategory'] ?? '') ?>" class="w-full border border-gray-300 rounded-md p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition">

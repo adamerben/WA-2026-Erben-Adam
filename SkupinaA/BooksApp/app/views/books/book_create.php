@@ -25,10 +25,21 @@ require_once '../app/views/layout/header.php';
                     <label for="isbn" class="block text-sm font-medium text-gray-700 mb-1">ISBN</label>
                     <input type="text" id="isbn" name="isbn" class="w-full border border-gray-300 rounded-md p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition">
                 </div>
-                <div>
-                    <label for="category" class="block text-sm font-medium text-gray-700 mb-1">Kategorie</label>
-                    <input type="text" id="category" name="category" class="w-full border border-gray-300 rounded-md p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition">
-                </div>
+            <div>
+                <label for="category">Kategorie *</label>
+                <!-- ZMĚNA: Použití select místo input a iterace přes $categories -->
+                <select id="category" name="category" required>
+                    <option value="">-- Vyberte kategorii --</option>
+                    
+                    <?php foreach ($categories as $cat): ?>
+                        <!-- Do value ukládáme ID kategorie (to se odešle do DB), ale uživateli zobrazíme název -->
+                        <option value="<?= htmlspecialchars($cat['id']) ?>">
+                            <?= htmlspecialchars($cat['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                    
+                </select>
+            </div>
                 <div>
                     <label for="subcategory" class="block text-sm font-medium text-gray-700 mb-1">Podkategorie</label>
                     <input type="text" id="subcategory" name="subcategory" class="w-full border border-gray-300 rounded-md p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition">
